@@ -1,0 +1,18 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Country Dropdown</h1>
+    <form action="{{ url_for('deal') }}" method="post" name="login">
+        {{ form.hidden_tag() }}
+        <p>
+            Please select your country below:<br>
+            {{ form.country() }}
+        </p>
+        <p>{{ form.remember_me }} Remember Me</p>
+        <p><input type="submit" value="Sign In"></p>
+    </form>
+   
+    
+{% endblock %}

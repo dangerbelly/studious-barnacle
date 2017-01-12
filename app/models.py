@@ -1,0 +1,12 @@
+import psycopg2
+from sqlalchemy import create_engine
+import pandas as pd
+
+def load_table(grade,year):
+    engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
+
+    table_name = ('%s-%s' % (grade,year))
+
+    df = pd.read_csv("/home/dangerbelly/microblog/app/grade3-1415.csv")
+
+    df.to_sql(table_name, engine) 

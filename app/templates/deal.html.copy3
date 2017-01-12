@@ -1,0 +1,38 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container theme-showcase">
+  <div class="row">
+    <div class="col-md-4">
+
+      <h1>Country Dropdown</h1>
+      <form action="{{ url_for('deal') }}" method="post" name="login">
+        {{ form.hidden_tag() }}
+     
+            {{ form.country(class='dropdown') }}
+        
+    <!--</form>-->
+    </div>
+    <div class="col-md-4">
+
+      <h1>Year Dropdown</h1>
+  <!--  <form action="{{ url_for('deal') }}" method="post" name="login">    -->
+
+        {{ form.hidden_tag() }}
+             
+            {{ form.year(class='dropdown') }}
+            
+    </div>
+  <div class="col-md-4">
+   
+      <h1>Load the Data</h1>
+    </div>
+      
+      <input class="btn btn-primary btn-lg" type="submit" value="Submit">
+    </form>
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

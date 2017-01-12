@@ -1,0 +1,35 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container theme-showcase">
+<div class="col-md-6">
+
+    <h1>Country Dropdown</h1>
+    <form action="{{ url_for('deal') }}" method="post" name="login">
+        {{ form.hidden_tag() }}
+        
+            Please select your country below:<br>
+            {{ form.country(class='form-control') }}
+        
+        
+    </form>
+</div>
+<div class="col-md-6">
+
+    <h1>Year Dropdown</h1>
+    <form action="{{ url_for('deal') }}" method="post" name="login">
+        {{ form.hidden_tag() }}
+        
+            Please select your year below:<br>
+            {{ form.year(class='form-control') }}
+        
+        
+    </form>
+</div>
+<div class="col-md-6">
+  <p><input type="submit" value="Submit"></p>
+  <p><button class="btn btn-xs btn-default" type="button">Default</button>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+from flask_wtf import Form
+from wtforms import StringField, BooleanField, SelectField, SelectMultipleField
+from wtforms.validators import DataRequired
+
+
+class LoginForm(Form):
+    openid = StringField('openid', validators=[DataRequired()])
+    remember_me = BooleanField('remember_me', default=False)
+
+class DealForm(Form):
+    grade = SelectField('Country', choices=[
+        ('us','USA'),('gb','Great Britain'),('ru','Russia')])
+
+    year = SelectField('Year', choices=[
+        ('1415','14-15'),('1516','15-16'),('1617','16-17')])
+
+class ClassInfo(Form):
+	classinfo = SelectField('Year', choices=[
+        ('1415','14-15'),('1516','15-16'),('1617','16-17')])
