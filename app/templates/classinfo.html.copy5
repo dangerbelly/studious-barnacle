@@ -156,17 +156,9 @@
       var h = 100;
       var barPadding = 1;
       
-      var dataset;
-
-d3.csv('/static/scores.csv', function(data)
-{
-    console.log("scores:", data)
-     dataset = data.map(function(d) { return [ +d["Score"] ]; });
-
-     console.log(dataset[0])
-
-
-
+      var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+              11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+      
       //Create SVG element
       var svg = d3.select("div.a")
             .append("svg")
@@ -209,7 +201,7 @@ d3.csv('/static/scores.csv', function(data)
          .attr("font-size", "11px")
          .attr("fill", "white");
 
-   });
+
       
     </script>
 
