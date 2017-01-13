@@ -48,21 +48,6 @@
     <script type="text/javascript" src="http://d3js.org/d3.v3.min.js">
     </script>
     <style type="text/css">
-
-      .a {
-        display: inline-block;
-        margin: 0 auto;
-      }
-      
-      .row.match-my-cols {
-        overflow: hidden;
-      }
-
-      .row.match-my-cols [class*="col-"]{
-        margin-bottom: -99999px;
-        padding-bottom: 99999px;
-      }   
-
     
       div.bar {
         display: inline-block;
@@ -139,7 +124,7 @@
             </div>
 
         <div class="row match-my-cols">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <h2>Upload CSV</h2>
             <form action = "http://localhost:5000/uploader" method = "POST" 
               enctype = "multipart/form-data">
@@ -149,67 +134,74 @@
         
         
           </div>
-           <div class="col-md-4">
-              <h2>Statistics</h2>
-              <h2>Summary</h2>
-              <h3>Total Students:</h3>
-           </div>
+
+<div class="col-md-6">
+        <div class="a">
+
+         <script type="text/javascript">
+
+      //Width and height
+      var w = 500;
+      var h = 100;
+      var barPadding = 1;
+      
+      var dataset;
+
+d3.csv('/static/scores.csv?_=' + Math.random(), function(data)
+{
+    console.log("scores:", data)
+     dataset = data.map(function(d) { return [ +d["Score"] ]; });
+
+     console.log(dataset[0])
 
 
-<div class="col-md-4 a">
 
- <script>
+      //Create SVG element
+      var svg = d3.select("div.a")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
 
-var width = 350,
-    height = 200,
-    radius = Math.min(width, height / 2);
+      svg.selectAll("rect")
+         .data(dataset)
+         .enter()
+         .append("rect")
+         .attr("x", function(d, i) {
+            return i * (w / dataset.length);
+         })
+         .attr("y", function(d) {
+            return h - (d * 4);
+         })
+         .attr("width", w / dataset.length - barPadding)
+         .attr("height", function(d) {
+            return d * 4;
+         })
+         .attr("fill", function(d) {
+          return "rgb(0, 0, " + (d * 10) + ")";
+         });
 
-var color = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+      svg.selectAll("text")
+         .data(dataset)
+         .enter()
+         .append("text")
+         .text(function(d) {
+            return d;
+         })
+         .attr("text-anchor", "middle")
+         .attr("x", function(d, i) {
+            return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+         })
+         .attr("y", function(d) {
+            return h - (d * 4) + 14;
+         })
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "11px")
+         .attr("fill", "white");
 
-var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
-
-var labelArc = d3.svg.arc()
-    .outerRadius(radius - 20)
-    .innerRadius(radius - 20);
-
-var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.population; });
-
-var svg = d3.select("div.a").insert("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .insert("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-d3.csv("/static/data.csv", type, function(error, data) {
-  if (error) throw error;
-
-  var g = svg.selectAll(".arc")
-      .data(pie(data))
-      .enter().insert("g")
-      .attr("class", "arc");
-
-  g.insert("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.age); });
-
-  g.insert("text")
-      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.data.age; });
-});
-
-function type(d) {
-  d.population = +d.population;
-  return d;
-}
-
-</script>
-
+   });
+      
+    </script>
+  </div>
 </div>
 
     </div> <!-- /row -->
