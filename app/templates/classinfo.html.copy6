@@ -25,10 +25,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
-
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -40,10 +36,7 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
     <![endif]-->
-
-     
 
     <script type="text/javascript" src="http://d3js.org/d3.v3.min.js">
     </script>
@@ -113,14 +106,17 @@
       <div class="page-header">
         <h2>Year 1</h2>
       </div>
-
-        <div class="row match-my-cols">
+        
+        <div class="row">
           <div class="col-md-2">
-          Upload CSV
-            <form action = "http://localhost:5000/uploader" method = "POST" 
-              enctype = "multipart/form-data">
-              <input type = "file" name = "file" />
-              <input type = "submit"/>
+          <h1>Upload CSV</h1>
+            <form action="" method=post enctype=multipart/form-data>
+              <label class="btn btn-default btn-file">
+                Browse <input type="file" name=file style="display:none;">
+              </label>
+              <label class="btn btn-primary btn-file">
+                Upload <input type="submit" style="display:none;" value=Upload>
+              </label>
             </form>
         
         
@@ -162,7 +158,7 @@
       
       var dataset;
 
-d3.csv('/static/scores.csv?_=' + Math.random(), function(data)
+d3.csv('/static/scores.csv', function(data)
 {
     console.log("scores:", data)
      dataset = data.map(function(d) { return [ +d["Score"] ]; });
@@ -218,9 +214,6 @@ d3.csv('/static/scores.csv?_=' + Math.random(), function(data)
     </script>
 
     </div> <!-- /container -->
-
-    
-
     
 
     
