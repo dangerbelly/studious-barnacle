@@ -99,9 +99,8 @@ def upload():
         # Move the file form the temporal folder to
         # the upload folder we setup
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # Redirect the user to the uploaded_file route, which
-        # will basicaly show on the browser the uploaded file
-        return render_template('classinfo.html', user='ryan', form=form)
+
+        return render_template('classinfo.html', user='ryan', form=form, filename=filename)
 
 @app.route('/uploads')
 def uploaded_file(filename):

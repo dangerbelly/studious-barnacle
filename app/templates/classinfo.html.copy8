@@ -182,9 +182,7 @@
                   .insert("g")
                   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-              var filename = "/static/{{ filename }}"
-
-              d3.csv(filename, type, function(error, data) {
+              d3.csv("/static/data.csv", type, function(error, data) {
                 if (error) throw error;
 
                 var g = svg.selectAll(".arc")
@@ -302,99 +300,7 @@
                     </script>
                 </div>
             </div>
-        </div> <!-- /row -->
-        <div class="page-header">
-          <h2>3. Calculate deltas</h2>
-    </div>
-
-    <div class="row match-my-cols">
-        <div class="col-md-2">
-              Upload CSV
-              <form action = "http://localhost:5000/uploader" method = "POST" enctype = "multipart/form-data">
-                  <input type = "file" name = "file" />
-                  <input type = "submit"/>
-              </form>                
-        </div>   
-
-        <div class="col-md-2">
-            <h1>Grade</h1>
-            <form action="{{ url_for('classinfo') }}" method="post" name="login">
-                {{ form.hidden_tag() }}
-                {{ form.classinfo(class_='btn') }}          
-            </form>
-        </div>
-
-        <div class="col-md-2">          
-            <h1>Create table</h1>          
-            <input class="btn btn-primary" type="submit" value="Submit">
-        </div>
-          
-        <div class="col-md-6">
-            <div class="c">
-                <script type="text/javascript">
-
-                    //Width and height
-                    var w = 500;
-                    var h = 100;
-                    var barPadding = 1;
-                    
-                    var dataset;
-
-                        d3.csv('/static/scores2.csv?_=' + Math.random(), function(data)
-                        {
-                            console.log("scores:", data)
-                            dataset = data.map(function(d) { return [ +d["Score"] ]; });
-
-                            console.log(dataset[0])
-
-                            //Create SVG element
-                            var svg = d3.select("div.c")
-                                .append("svg")
-                                .attr("width", w)
-                                .attr("height", h);
-
-                            svg.selectAll("rect")
-                               .data(dataset)
-                               .enter()
-                               .append("rect")
-                               .attr("x", function(d, i) {
-                                  return i * (w / dataset.length);
-                               })
-                               .attr("y", function(d) {
-                                  return h - (d * 4);
-                               })
-                               .attr("width", w / dataset.length - barPadding)
-                               .attr("height", function(d) {
-                                  return d * 4;
-                               })
-                               .attr("fill", function(d) {
-                                return "rgb(0, 0, " + (d * 10) + ")";
-                               });
-
-                            svg.selectAll("text")
-                               .data(dataset)
-                               .enter()
-                               .append("text")
-                               .text(function(d) {
-                                  return d;
-                               })
-                               .attr("text-anchor", "middle")
-                               .attr("x", function(d, i) {
-                                  return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-                               })
-                               .attr("y", function(d) {
-                                  return h - (d * 4) + 14;
-                               })
-                               .attr("font-family", "sans-serif")
-                               .attr("font-size", "11px")
-                               .attr("fill", "white");
-
-                        });
-              
-                    </script>
-                </div>
-            </div>
-        </div> <!-- /row -->
+        </div> <!-- /row -->\
     </div> <!-- /container -->
 
 
