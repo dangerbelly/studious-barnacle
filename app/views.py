@@ -4,6 +4,7 @@ from .forms import LoginForm
 from .forms import DealForm
 from .forms import ClassInfo
 from .models import load_table
+from .models import gradelevel_dataset
 from werkzeug import secure_filename
 import os
 
@@ -100,7 +101,12 @@ def upload():
         # the upload folder we setup
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        return render_template('classinfo.html', user='ryan', form=form, filename=filename)
+        load_table(filename)
+
+        gld = gradelevel_dataset('grade18-2015')
+
+        #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
+        return redirect('/classinfo')
 
 @app.route('/uploads')
 def uploaded_file(filename):
