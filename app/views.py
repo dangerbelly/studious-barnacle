@@ -103,7 +103,7 @@ def upload():
 
         load_table(filename)
 
-        gld = gradelevel_dataset('grade18-2015')
+        gld = gradelevel_dataset('grade20-2015')
 
         #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
         return redirect('/classinfo')

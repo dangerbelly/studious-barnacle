@@ -25,6 +25,12 @@ class gradelevel_dataset:
 		MAL_list = df['Mathematics Achievement Level']
 		MAL_list = list(MAL_list)
 
+		for e, x in enumerate(MAL_list):
+			try:
+				MAL_list[e] = int(MAL_list[e])
+			except (TypeError, ValueError):
+				MAL_list[e] = 0
+
 		self.math_4score = sum(1 for x in MAL_list if x==4)
 		self.math_3score = sum(1 for x in MAL_list if x==3)
 		self.math_2score = sum(1 for x in MAL_list if x==2)
