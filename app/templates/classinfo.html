@@ -81,6 +81,16 @@
         stroke: #fff;
       }
 
+      .nopadding {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .well{
+        background-color: rgba(255,255,255,0.0); // I don't know the .well color, so I used white as example
+        border: none;
+      }
+
     </style>
   </head>
 
@@ -135,7 +145,7 @@
           <h2>1. Load data </h2>
       </div>
 
-      <div class="row match-my-cols">
+      <div class="row match-my-cols" style="padding-top: 0px">
           <div class="col-md-4">
             <h2>Upload CSV</h2>
             <form action = "http://localhost:5000/uploader" method = "POST" 
@@ -145,72 +155,151 @@
             </form>        
         
           </div>
-          <div class="col-md-4">
-              <h2>Statistics</h2>
-              <h2>Summary</h2>
-              <h3>Total Students:</h3>
-          </div>
+
+          <div class="col-md-8" style="padding-top: 0px">
+
+            <div class="row" style="margin-top: -10px">
+                <div class="col-md-6 text-center">
+                    <h4>Math Achievement Levels</h4>
+                </div>
+                <div class="col-md-6 text-center">
+                    <h4>ELA/Literacy Achievement Levels</h4>
+                </div>                
+            </div>
+      
+            <div class="row">
+              <div id="chart" class="col-md-6" style="margin-top: 0px">
+
+                  <script>
+
+                      var width = 350,
+                          height = 350,
+                          radius = Math.min(width, height / 2);
+                          donutWidth = 75;
+
+                      var color = d3.scale.ordinal()
+                          .range(["#a05d56", "#fc3e2a", "#d0743c", "#ff8c00", "#a05d56"]);
+                          <!-- "#98abc5", "#8a89a6", "#7b6888", "#6b486b"   -->
+
+                      var arc = d3.svg.arc()
+                          .outerRadius(radius)
+                          .innerRadius(radius - donutWidth);
+
+                      <!-- var labelArc = d3.svg.arc() -->
+                      <!--    .outerRadius(radius - 50) -->
+                      <!--    .innerRadius(radius - 50); -->
 
 
-      <div class="col-md-4 a">
+                      var pie = d3.layout.pie()
+                      .sort(null)
+                      .value(function(d) { return d.level; });
 
-          <script>
+                      var svg = d3.select("#chart").append("svg")
+                          .attr("width", width)
+                          .attr("height", height)
+                          .append("g")
+                          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-              var width = 350,
-                  height = 200,
-                  radius = Math.min(width, height / 2);
+                      var filename = "/static/{{ filename }}"
 
-              var color = d3.scale.ordinal()
-                  .range(["#a05d56", "#fc3e2a", "#d0743c", "#ff8c00", "#a05d56"]);
-                  <!-- "#98abc5", "#8a89a6", "#7b6888", "#6b486b"   -->
+                      d3.csv("/static/data.csv?_=" + Math.random(), type, function(error, data) 
+                      <!-- d3.csv(filename, type, function(error, data) -->
+                      {
+                        if (error) throw error;
 
-              var arc = d3.svg.arc()
-                  .outerRadius(radius - 10)
-                  .innerRadius(0);
+                        var g = svg.selectAll(".arc")
+                            .data(pie(data))
+                            .enter().append("g")
+                            .attr("class", "arc");
 
-              var labelArc = d3.svg.arc()
-                  .outerRadius(radius - 50)
-                  .innerRadius(radius - 50);
+                        g.append("path")
+                            .attr("d", arc)
+                            .style("fill", function(d) { return color(d.data.cat); });
 
-              var pie = d3.layout.pie()
-              .sort(null)
-              .value(function(d) { return d.level; });
+                        g.append("text")
+                            .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+                            .attr("dy", ".35em")
+                            .text(function(d) { return d.data.cat; });
+                      });
 
-              var svg = d3.select("div.a").insert("svg")
-                  .attr("width", width)
-                  .attr("height", height)
-                  .insert("g")
-                  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                      function type(d) {
+                        d.level = +d.level;
+                        return d;
+                      }
 
-              var filename = "/static/{{ filename }}"
+                  </script>
 
-              d3.csv("/static/data.csv?_=" + Math.random(), type, function(error, data) 
-              <!-- d3.csv(filename, type, function(error, data) -->
-              {
-                if (error) throw error;
+              </div>
 
-                var g = svg.selectAll(".arc")
-                    .data(pie(data))
-                    .enter().insert("g")
-                    .attr("class", "arc");
+              <div id="chart2" class="col-md-6">
 
-                g.insert("path")
-                    .attr("d", arc)
-                    .style("fill", function(d) { return color(d.data.cat); });
+                  <script>
 
-                g.insert("text")
-                    .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-                    .attr("dy", ".35em")
-                    .text(function(d) { return d.data.cat; });
-              });
+                      var width = 350,
+                          height = 350,
+                          radius = Math.min(width, height / 2);
+                          donutWidth = 75;
 
-              function type(d) {
-                d.level = +d.level;
-                return d;
-              }
+                      var color = d3.scale.ordinal()
+                          .range(["#a05d56", "#fc3e2a", "#d0743c", "#ff8c00", "#a05d56"]);
+                          <!-- "#98abc5", "#8a89a6", "#7b6888", "#6b486b"   -->
 
-          </script>
-      </div>
+                      var arc = d3.svg.arc()
+                          .outerRadius(radius)
+                          .innerRadius(radius - donutWidth);
+
+                      <!-- var labelArc = d3.svg.arc() -->
+                      <!--    .outerRadius(radius - 50) -->
+                      <!--    .innerRadius(radius - 50); -->
+
+
+                      var pie = d3.layout.pie()
+                      .sort(null)
+                      .value(function(d) { return d.level; });
+
+                      var svg2 = d3.select("#chart2").append("svg")
+                          .attr("width", width)
+                          .attr("height", height)
+                          .append("g")
+                          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+                      var filename = "/static/{{ filename }}"
+
+                      d3.csv("/static/data2.csv?_=" + Math.random(), type, function(error, data) 
+                      <!-- d3.csv(filename, type, function(error, data) -->
+                      {
+                        if (error) throw error;
+
+                        var g2 = svg2.selectAll(".arc")
+                            .data(pie(data))
+                            .enter().append("g")
+                            .attr("class", "arc");
+
+                        g2.append("path")
+                            .attr("d", arc)
+                            .style("fill", function(d) { return color(d.data.cat); });
+
+                        g2.append("text")
+                            .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+                            .attr("dy", ".35em")
+                            .text(function(d) { return d.data.cat; });
+                      });
+
+                      function type(d) {
+                        d.level = +d.level;
+                        return d;
+                      }
+
+                  </script>
+              </div>
+            </div>
+
+              <div class="row">
+                  Test text
+              </div>
+          
+        </div> <!-- /8col row -->
+
     </div> <!-- /row -->
 
     <div class="page-header">
