@@ -215,6 +215,11 @@
                             .append("g")
                             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+                        svg.append("circle")
+                            .attr("cx", 10)
+                            .attr("cy", 10)
+                            .attr("r", 10)
+
                         var g = svg.selectAll(".arc")
                             .data(pie(data))
                             .enter().append("g")
@@ -273,6 +278,10 @@
                           .append("g")
                           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+                      svg2.append("text")
+                          .attr("text-anchor", "middle")
+                          .text("More text")
+
                       var filename = "/static/{{ filename }}"
 
 
@@ -294,6 +303,7 @@
                             .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
                             .attr("dy", ".35em")
                             .text(function(d) { return d.data.cat; });
+
                       });
 
                       function type(d) {
@@ -312,11 +322,13 @@
         </div> <!-- /8col row -->
 
     </div> <!-- /row -->
-
+    <div class="page-header">
+          <h2>Map Student->Teacher</h2>
+    </div>
           <div class="row match-my-cols" style="padding-top: 0px">
           <div class="col-md-4">
-            <h2>Upload CSV</h2>
-            <form action = "http://localhost:5000/uploader" method = "POST" 
+            <h3>Upload CSV</h3>
+            <form action = "http://localhost:5000/group_by" method = "POST" 
               enctype = "multipart/form-data">
               <input type = "file" name = "file" />
               <input type = "submit"/>
@@ -354,6 +366,10 @@
                             .outerRadius(radius)
                             .innerRadius(radius - donutWidth);
 
+                        var arc2 = d3.svg.arc()
+                            .outerRadius(30)
+                            .innerRadius(10);
+
                         var legendRectSize = 18;
                         var legendSpacing = 4;
 
@@ -369,15 +385,35 @@
                             .append("g")
                             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+                        svg3.append("text")
+                            .attr("text-anchor", "middle")
+                            .text("This is text")
+
+                       
+
                         var g3 = svg3.selectAll(".arc")
                             .data(pie(data))
                             .enter().append("g")
                             .attr("class", "arc");
 
-                        var g4 = svg3.selectAll(".legend")
+                        var svg4 = d3.select("#chart3").append("svg")
+                            .attr("width",50)
+                            .attr("height",50);
+                            
+
+
+                        var g4 = svg4.selectAll(".legend")
                             .data(pie(data))
                             .enter().append("g")
                             .text("Hello")
+                            .attr('class', 'legend')
+                            .attr('transform', function(d, i) {
+                              var height = legendRectSize + legendSpacing;
+                              var offset =  height * color.domain().length / 2;
+                              var horz = -2 * legendRectSize;
+                              var vert = i * height - offset;
+                              return 'translate(' + horz + ',' + vert + ')';
+                            });
 
                         g3.append("path")
                             .attr("d", arc)

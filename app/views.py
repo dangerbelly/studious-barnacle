@@ -4,6 +4,7 @@ from .forms import LoginForm
 from .forms import DealForm
 from .forms import ClassInfo
 from .models import load_table
+from .models import teacherGroup
 from .models import gradelevel_dataset
 from werkzeug import secure_filename
 import os
@@ -101,12 +102,34 @@ def upload():
         # the upload folder we setup
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        load_table(filename)
+        load_table(filename, "master1")
 
-        gld = gradelevel_dataset('grade20-2015')
+        gld = gradelevel_dataset('master1')
 
         #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
         return redirect('/classinfo')
+
+@app.route('/group_by', methods=['GET', 'POST'])
+def group_by():
+    form = ClassInfo()
+    # Get the name of the uploaded file
+    file = request.files['file']
+    # Check if the file is one of the allowed types/extensions
+    if file and allowed_file(file.filename):
+        # Make the filename safe, remove unsupported chars
+        filename = secure_filename(file.filename)
+        # Move the file form the temporal folder to
+        # the upload folder we setup
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        load_table(filename, "teachertable")
+
+        tg = teacherGroup('master1','teachertable')
+
+
+        #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
+        return redirect('/classinfo')
+
 
 @app.route('/uploads')
 def uploaded_file(filename):
