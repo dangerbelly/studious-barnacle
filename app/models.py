@@ -13,7 +13,7 @@ def load_table(uploaded_file, tablename):
     #table_name = ('%s-%s' % (grade,year))
     table_name = tablename
 
-    df = pd.read_csv("/home/dangerbelly/microblog/app/static/%s" % uploaded_file)
+    df = pd.read_csv("./app/static/%s" % uploaded_file)
 
     df.to_sql(table_name, engine)
 
@@ -39,7 +39,7 @@ class gradelevel_dataset:
 		self.math_1score = sum(1 for x in MAL_list if x==1)
 
 		df2 = pd.DataFrame([['cat','level'],['Standard Exceeded',self.math_4score],['Standard Met',self.math_3score],['Standard Nearly Met',self.math_2score],['Standard Not Met',self.math_1score]])
-		df2.to_csv('/home/dangerbelly/microblog/app/static/data.csv', index=False, header=False)
+		df2.to_csv('./app/static/data.csv', index=False, header=False)
 
 		EAL_list = df['ELA/Literacy Achievement Level']
 		EAL_list = list(EAL_list)
@@ -56,7 +56,7 @@ class gradelevel_dataset:
 		self.ela_1score = sum(1 for x in EAL_list if x==1)
 
 		df3 = pd.DataFrame([['cat','level'],['Standard Exceeded',self.ela_4score],['Standard Met',self.ela_3score],['Standard Nearly Met',self.ela_2score],['Standard Not Met',self.ela_1score]])
-		df3.to_csv('/home/dangerbelly/microblog/app/static/data2.csv', index=False, header=False)
+		df3.to_csv('./app/static/data2.csv', index=False, header=False)
 
 class teacherGroup:
 
