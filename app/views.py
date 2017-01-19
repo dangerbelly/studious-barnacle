@@ -9,8 +9,9 @@ from .models import gradelevel_dataset
 from werkzeug import secure_filename
 import os
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static')
+#APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+#UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static')
+UPLOAD_FOLDER = '/home/dangerbelly/studious-barnacle/app/static'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv'])
@@ -105,7 +106,7 @@ def upload():
         # the upload folder we setup
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        load_table('static/%s' % filename, "master1")
+        load_table(filename, "master1")
 
         gld = gradelevel_dataset('master1')
 
