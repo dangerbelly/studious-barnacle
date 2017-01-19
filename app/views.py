@@ -9,7 +9,7 @@ from .models import gradelevel_dataset
 from werkzeug import secure_filename
 import os
 
-app.config['UPLOAD_FOLDER'] = '/static'
+app.config['UPLOAD_FOLDER'] = 'static/'
 
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv'])
 
