@@ -33,4 +33,4 @@ for row, i in enumerate(lol):
 
 df['cu'] = pd.Series(cu_list, index=df.index)
 
-fdf.to_sql('us-1415-teachers', engine)
+df.to_sql('us-1415-teachers', engine)
