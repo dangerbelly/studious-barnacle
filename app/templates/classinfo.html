@@ -141,19 +141,18 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Basic Data Visualizer</h1>
-          <h2>Process and graph testing data.</h2>
-          <h3>1. Load data</h3>
-          <h3>2. Group data by teacher</h3>
+          <h3>1. Initialize</h3>
+          <h3>2. Map students to classes</h3>
           <h3>3. Calculate deltas</h3>
       </div>
     
       <div class="page-header">
-          <h2>1. Load data </h2>
+          <h2>1. Initialize</h2>
       </div>
 
       <div class="row match-my-cols" style="padding-top: 0px">
           <div class="col-md-4">
-            <h2>Upload CSV</h2>
+            <h4>Initialize the app by uploading the CAASPP data</h4>
             <form action = "http://localhost:5000/uploader" method = "POST" 
               enctype = "multipart/form-data">
               <input type = "file" name = "file" />
@@ -165,11 +164,8 @@
           <div class="col-md-8" style="padding-top: 0px">
 
             <div class="row" style="margin-top: -10px">
-                <div class="col-md-6 text-center">
-                    <h3>Math Achievement Levels</h3>
-                </div>
-                <div class="col-md-6 text-center">
-                    <h3>ELA/Literacy Achievement Levels</h3>
+                <div class="col-md-12 text-center">
+                    <h3>Achievement Level Totals</h3>
                 </div>                
             </div>
       
@@ -215,10 +211,9 @@
                             .append("g")
                             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-                        svg.append("circle")
-                            .attr("cx", 10)
-                            .attr("cy", 10)
-                            .attr("r", 10)
+                        svg.append("text")
+                          .attr("text-anchor", "middle")
+                          .text("Mathematics")
 
                         var g = svg.selectAll(".arc")
                             .data(pie(data))
@@ -280,7 +275,7 @@
 
                       svg2.append("text")
                           .attr("text-anchor", "middle")
-                          .text("More text")
+                          .text("ELA/Literacy")
 
                       var filename = "/static/{{ filename }}"
 
@@ -323,7 +318,7 @@
 
     </div> <!-- /row -->
     <div class="page-header">
-          <h2>Map Student->Teacher</h2>
+          <h2>2. Map Student-->Teacher</h2>
     </div>
           <div class="row match-my-cols" style="padding-top: 0px">
           <div class="col-md-4">
@@ -332,6 +327,11 @@
               enctype = "multipart/form-data">
               <input type = "file" name = "file" />
               <input type = "submit"/>
+            </form>
+            <h3>Select a teacher:</h3>
+            <form action="{{ url_for('classinfo') }}" method="post" name="login">
+                {{ form.hidden_tag() }}
+                {{ form.classinfo(class_='btn') }}          
             </form>        
         
           </div>
@@ -464,7 +464,7 @@
 
         <div class="col-md-2">
             <h1>Grade</h1>
-            <form action="{{ url_for('classinfo') }}" method="post" name="login">
+            <form action="{{ url_for('teacherdropdown') }}" method="post" name="login">
                 {{ form.hidden_tag() }}
                 {{ form.classinfo(class_='btn') }}          
             </form>

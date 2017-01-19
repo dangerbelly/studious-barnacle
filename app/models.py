@@ -63,7 +63,6 @@ class teacherGroup:
 	def __init__(self, table1, table2):
 		engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
 		df = pd.read_sql_query('select * from "%s"' % table1, con=engine)
-		df
 		lol = df.values.tolist()
 
 		df_teach = pd.read_sql_query('select * from "%s"' % table2, con=engine)
@@ -96,5 +95,22 @@ class teacherGroup:
 
 		self.df = df
 
-		self.grouped = df['Student ID'].groupby(df['cu'])
+		self.gb = df.groupby('cu')
 
+		self.engine = engine
+
+	def create_group_tables(self):
+
+		engine = self.engine
+		gb = self.gb
+		df_list = []
+		df_groups = []
+		for x in gb.groups:
+			df_list.append(gb.get_group(x))
+			df_groups.append(x)
+
+
+		for f,b in zip(df_groups, df_list):
+			df = b
+			name = str(f)
+			df.to_sql(name, engine, index=False)

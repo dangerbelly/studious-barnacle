@@ -89,6 +89,7 @@ def classinfo():
         return redirect('/index')
     return render_template('classinfo.html', user='ryan', form =form)
 
+
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload():
     form = ClassInfo()
@@ -126,10 +127,20 @@ def group_by():
 
         tg = teacherGroup('master1','teachertable')
 
+        tg.create_group_tables( )
 
         #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
         return redirect('/classinfo')
 
+
+@app.route('/teacherdropdown', methods=['GET', 'POST'])
+def teacherdropdown():
+    form = TeacherDropdown()
+
+
+    if form.validate_on_submit():
+        return redirect('/index')
+    return redirect('/classinfo')
 
 @app.route('/uploads')
 def uploaded_file(filename):
