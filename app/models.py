@@ -1,10 +1,13 @@
 import psycopg2
 from sqlalchemy import create_engine
+from config import SQLALCHEMY_DATABASE_URI
 import pandas as pd
 import csv
+from app import db
 
 def load_table(uploaded_file, tablename):
-    engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
+    #engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
 
     #grade = "grade20"
 
@@ -13,9 +16,9 @@ def load_table(uploaded_file, tablename):
     #table_name = ('%s-%s' % (grade,year))
     table_name = tablename
 
-    df = pd.read_csv("%s" % uploaded_file)
+    df = pd.read_csv("/home/dangerbelly/studious-barnacle/app/static/%s" % uploaded_file)
 
-    df.to_sql(table_name, engine)
+    df.to_sql(table_name, engine, if_exists='replace')
 
 class gradelevel_dataset:
 
@@ -114,3 +117,20 @@ class teacherGroup:
 			df = b
 			name = str(f)
 			df.to_sql(name, engine, index=False)
+
+class User(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	nickname = db.Column(db.String(64), index=True, unique=True)
+	email = db.Column(db.String(120), index=True, unique=True)
+
+	def __repr__(self):
+		return '<User %r>' % (self.nickname)
+
+class Post(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	body = db.Column(db.String(140))
+	timestamp = db.Column(db.DateTime)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+	def __repr__(self):
+		return '<Post %r>' % (self.body)

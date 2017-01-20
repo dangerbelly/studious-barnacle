@@ -6,12 +6,14 @@ from .forms import ClassInfo
 from .models import load_table
 from .models import teacherGroup
 from .models import gradelevel_dataset
+from .models import User
+from config import basedir
 from werkzeug import secure_filename
 import os
 
 #APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 #UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static')
-UPLOAD_FOLDER = '/home/dangerbelly/studious-barnacle/app/static'
+UPLOAD_FOLDER = basedir + '/app/static'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv'])
@@ -21,23 +23,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 @app.route('/')
-@app.route('/index')
-def index():
-    user = {'nickname': 'Miguel'}
-    posts = [
-        {
-            'author': {'nickname': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'nickname': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html',
-                           title='Home',
-                           user=user,
-                           posts=posts)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -53,44 +38,17 @@ def login():
                            form=form,
                            providers=app.config['OPENID_PROVIDERS'])
 
-@app.route('/deal', methods=['GET', 'POST'])
-def deal():
-    form = DealForm()
-#    if not form.validate_on_submit():
-#        flash('Country selected="%s"' % (form.Country.data))
-#        return redirect('/index')
-#        #return render_template( 'deal.html', user='ryan', form = form)
-#    else:
-#        return render_template( 'deal.html', form = form )
-
-    if form.validate_on_submit():
-        flash('Country selected="%s" Year selected"%s"' % (form.grade.data,form.year.data))
-        load_table(form.grade.data,form.year.data)
-        return redirect('/index')
-
-    return render_template( 'deal.html', user='ryan', form = form)
-
-def year():
-    form = YearForm()
-#    if not form.validate_on_submit():
-#        flash('Country selected="%s"' % (form.Country.data))
-#        return redirect('/index')
-#        #return render_template( 'deal.html', user='ryan', form = form)
-#    else:
-#        return render_template( 'deal.html', form = form )
-
-    if form.validate_on_submit():
-        flash('Year selected="%s"' % (form.year.data))
-        return redirect('/index')
-    return render_template( 'deal.html', user='ryan', form = form)
-
-@app.route('/classinfo', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def classinfo():
     form = ClassInfo()
 
+    user1_obj = User.query.get(1)
+    user1_dict = user1_obj.__dict__
+    user1 = user1_dict['nickname']
+
     if form.validate_on_submit():
         return redirect('/index')
-    return render_template('classinfo.html', user='ryan', form =form)
+    return render_template('index.html', user='ryan', form =form, user1=user1)
 
 
 @app.route('/uploader', methods=['GET', 'POST'])
@@ -110,8 +68,7 @@ def upload():
 
         gld = gradelevel_dataset('master1')
 
-        #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
-        return redirect('/classinfo')
+        return redirect('/index')
 
 @app.route('/group_by', methods=['GET', 'POST'])
 def group_by():
@@ -133,7 +90,7 @@ def group_by():
         tg.create_group_tables( )
 
         #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
-        return redirect('/classinfo')
+        return redirect('/index')
 
 
 @app.route('/teacherdropdown', methods=['GET', 'POST'])
