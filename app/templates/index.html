@@ -8,9 +8,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
 
-    <title>Data Visualizer</title>
+    <title>CAASPPer</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.css" rel="stylesheet">
@@ -112,7 +112,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Data Visualizer</a>
+          <a class="navbar-brand" href="#">CAASPPer</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -140,11 +140,11 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Basic Data</h1>
-        <h1>Processing + Visualization</h1>
-          <h3>1. Initialize</h3>
-          <h3>2. Map students to classes</h3>
-          <h3>3. Calculate deltas</h3>
+        <h1>CAASPPer</h1>
+        <h2>Basic Data Processing and Visualization</h2>
+          <h3>1. <b>Initialize</b> the app</h3>
+          <h3>2. <b>Map</b> students to their teachers</h3>
+          <h3>3. <b>Generate</b> deltas and other tables</h3>
       </div>
       <div class="container1" style="padding: 15px">    
       <div class="page-header">
@@ -153,14 +153,19 @@
 
       <div class="row match-my-cols" style="padding-top: 0px">
           <div class="col-md-4">
-            <h4>Initialize the app by uploading the CAASPP data</h4>
+            <h4>Initialize the app by uploading a csv containing the CAASPP data.</h4>
+            <h4>This creates a table in the database and summarizes the results.</h4>
             <form action = "http://localhost:5000/uploader" method = "POST" 
               enctype = "multipart/form-data">
               <input type = "file" name = "file" />
               <input type = "submit"/>
             </form>
 
-            {{ user1 }}        
+            <hr>
+
+            <p>Number of Students: {{ user1 }}</p>
+            <p>District: {{user1}}</p>
+            <p>Schools: {{user1}}</p>     
         
           </div>
 
