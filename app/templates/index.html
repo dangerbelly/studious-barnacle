@@ -141,20 +141,18 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>CAASPPer</h1>
-        <h2>Basic Data Processing and Visualization</h2>
-          <h3>1. <b>Initialize</b> the app</h3>
-          <h3>2. <b>Map</b> students to their teachers</h3>
-          <h3>3. <b>Generate</b> deltas and other tables</h3>
       </div>
       <div class="container1" style="padding: 15px">    
       <div class="page-header">
           <h2>1. Initialize</h2>
       </div>
 
+      <a name="initialize"></a>
       <div class="row match-my-cols" style="padding-top: 0px">
-          <div class="col-md-4">
+          <div class="col-md-4 no-border">
             <h4>Initialize the app by uploading a csv containing the CAASPP data.</h4>
             <h4>This creates a table in the database and summarizes the results.</h4>
+            <p></p>
             <form action = "http://localhost:5000/uploader" method = "POST" 
               enctype = "multipart/form-data">
               <input type = "file" name = "file" />
@@ -169,16 +167,16 @@
         
           </div>
 
-          <div class="col-md-8" style="padding-top: 0px">
+          <div class="col-md-8 no-border" style="padding-top: 0px">
 
             <div class="row" style="margin-top: -10px">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 text-center no-border">
                     <h3>Achievement Level Totals</h3>
                 </div>                
             </div>
       
             <div class="row">
-              <div id="chart" class="col-md-6" style="margin-top: 0px">
+              <div id="chart" class="col-md-6 no-border" style="margin-top: 0px">
 
                   <script>
 
@@ -197,7 +195,9 @@
                             donutWidth = 75;
 
                         var color = d3.scale.ordinal()
-                            .range(["#a05d56", "#fc3e2a", "#d0743c", "#ff8c00", "#a05d56"]);
+                            .range(["#a05d56", "#fc3e2a", "#ff8c00", "#d4e6b5", "#a37a74"]);
+                            <!-- .range(["#d6ff79", "#b0ff92", "#a09be7", "#5f00ba", "#a05d56"]); -->
+                            <!-- .range(["#a05d56", "#fc3e2a", "#d0743c", "#ff8c00", "#a05d56"]); Good one-->
                             <!-- "#98abc5", "#8a89a6", "#7b6888", "#6b486b"   -->
 
                         var arc = d3.svg.arc()
@@ -249,7 +249,7 @@
 
               </div>
 
-              <div id="chart2" class="col-md-6">
+              <div id="chart2" class="col-md-6 no-border">
 
                   <script>
 
@@ -259,7 +259,7 @@
                           donutWidth = 75;
 
                       var color = d3.scale.ordinal()
-                          .range(["#a05d56", "#fc3e2a", "#d0743c", "#ff8c00", "#a05d56"]);
+                          .range(["#a05d56", "#fc3e2a", "#ff8c00", "#d4e6b5", "#a37a74"]);
                           <!-- "#98abc5", "#8a89a6", "#7b6888", "#6b486b"   -->
 
                       var arc = d3.svg.arc()

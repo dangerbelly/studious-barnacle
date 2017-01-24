@@ -68,7 +68,7 @@ def upload():
 
         gld = gradelevel_dataset('master1')
 
-        return redirect('/index')
+        return redirect('/index#initialize')
 
 @app.route('/group_by', methods=['GET', 'POST'])
 def group_by():
