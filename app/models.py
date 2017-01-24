@@ -24,7 +24,7 @@ def load_table(uploaded_file, tablename):
 class gradelevel_dataset:
 
 	def __init__(self,table):
-		engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
+		engine = create_engine(SQLALCHEMY_DATABASE_URI)
 		df = pd.read_sql_query('select * from "%s"' % table, con=engine)
 		self.total = len(df.index)
 
@@ -65,7 +65,7 @@ class gradelevel_dataset:
 class teacherGroup:
 
 	def __init__(self, table1, table2):
-		engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
+		engine = create_engine(SQLALCHEMY_DATABASE_URI)
 		df = pd.read_sql_query('select * from "%s"' % table1, con=engine)
 		lol = df.values.tolist()
 
