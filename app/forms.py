@@ -22,3 +22,8 @@ class DealForm(Form):
 class ClassInfo(Form):
     teachers = ['625','901','421']
     classinfo = SelectField('Year', choices=[(f,f) for f in teachers])
+
+class SelectTeacher(Form):
+    teachers = ['625','901','421']
+    classinfo = SelectField('Year', choices=[(f,f) for f in teachers])
+    result = 'result'
