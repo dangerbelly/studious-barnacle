@@ -29,7 +29,6 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
 
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -154,8 +153,8 @@
             <h4>This creates a table in the database and summarizes the results.</h4>
             <p></p>
             <form action = "http://localhost:5000/uploader" method = "POST" 
-              enctype = "multipart/form-data">
-              <input type = "file" name = "file" />
+              enctype = "multipart/form-data" onsubmit="return false">
+              <input type = "file" name = "number-one" />
               <input type = "submit"/>
             </form>
 
@@ -325,6 +324,7 @@
         </div> <!-- /8col row -->
 
     </div> <!-- /row -->
+    <a name="anchor2"></a>
     <div class="page-header">
           <h2>2. Map Student-->Teacher</h2>
     </div>
@@ -337,11 +337,14 @@
               <input type = "submit"/>
             </form>
             <h3>Select a teacher:</h3>
-            <form action="{{ url_for('classinfo') }}" method="post" name="login">
+            <form action="{{ url_for('selectateacher') }}" method="POST">
                 {{ form.hidden_tag() }}
-                {{ form.classinfo(class_='btn') }}          
-            </form>        
-        
+                {{ form.classinfo(class_='btn') }}
+
+                <input type = "submit"/>          
+            </form>
+
+            {{ result }}
           </div>
 
           <div class="col-md-8" style="padding-top: 0px">
@@ -658,6 +661,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="/static/dist/js/bootstrap.min.js"></script>
+    <script src={{ url_for('static', filename="main.js")}} type='text/javascript'></script>
+
     <!-- <script src="../../assets/js/docs.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
