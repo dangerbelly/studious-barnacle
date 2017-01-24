@@ -3,6 +3,7 @@ from app import app
 from .forms import LoginForm
 from .forms import DealForm
 from .forms import ClassInfo
+from .forms import SelectTeacher
 from .models import load_table
 from .models import teacherGroup
 from .models import gradelevel_dataset
@@ -10,6 +11,7 @@ from .models import User
 from config import basedir
 from werkzeug import secure_filename
 import os
+import json
 
 #APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 #UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static')
@@ -101,6 +103,15 @@ def teacherdropdown():
     if form.validate_on_submit():
         return redirect('/index')
     return redirect('/classinfo')
+
+@app.route('/selectateacher', methods=['GET', 'POST'])
+def selectateacher():
+    form = SelectTeacher()
+    result = form.result
+
+    if form.validate_on_submit():
+        return redirect('/index#anchor2', result=result)
+    return redirect('/index')
 
 @app.route('/uploads')
 def uploaded_file(filename):
