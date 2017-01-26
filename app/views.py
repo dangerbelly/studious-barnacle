@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, request
+from flask import render_template, flash, redirect, request, jsonify
 from app import app
 from .forms import LoginForm
 from .forms import DealForm
@@ -72,6 +72,16 @@ def upload():
 
         return redirect('/index#initialize')
 
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+   
+    if request.method == 'POST':
+        value_one = int(request.form.get('first'))
+        data = {"total_students":1562,"school_number":2,"schools":'RL, JX'}
+        return jsonify(data)
+    return redirect('/index#anchor2')
+
+
 @app.route('/group_by', methods=['GET', 'POST'])
 def group_by():
     form = ClassInfo()
@@ -107,7 +117,6 @@ def teacherdropdown():
 @app.route('/selectateacher', methods=['GET', 'POST'])
 def selectateacher():
     form = SelectTeacher()
-    result = form.result
 
     if form.validate_on_submit():
         return redirect('/index#anchor2', result=result)
