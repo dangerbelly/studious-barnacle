@@ -27,3 +27,7 @@ class SelectTeacher(Form):
     teachers = ['625','901','421']
     classinfo = SelectField('Year', choices=[(f,f) for f in teachers])
     result = 'result'
+
+class SelectGradeUpload(Form):
+    gradelevels = ['3rd','4th','5th','6th']
+    gradeinfo = SelectField('Grade', choices=[(f,f) for f in gradelevels])

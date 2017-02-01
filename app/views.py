@@ -58,17 +58,20 @@ def upload():
     form = ClassInfo()
     # Get the name of the uploaded file
     file = request.files['file']
+
+    grade_value = (request.form.get('grade_value'))
     # Check if the file is one of the allowed types/extensions
     if file and allowed_file(file.filename):
         # Make the filename safe, remove unsupported chars
         filename = secure_filename(file.filename)
+
         # Move the file form the temporal folder to
         # the upload folder we setup
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        load_table(filename, "master1")
+        load_table(filename, "master1_%s" % grade_value)
 
-        gld = gradelevel_dataset('master1')
+        gld = gradelevel_dataset('master1_%s' % grade_value)
 
         return redirect('/index#initialize')
 
@@ -77,9 +80,51 @@ def test():
    
     if request.method == 'POST':
         value_one = int(request.form.get('first'))
+        file = (request.form.get('file'))
+        grade_value = (request.form.get('grade_value'))
         data = {"total_students":1562,"school_number":2,"schools":'RL, JX'}
-        return jsonify(data)
+
+        print(grade_value)
+        #return jsonify(data)
+        if file and allowed_file(file.filename):
+            # Make the filename safe, remove unsupported chars
+            filename = secure_filename(file.filename)
+
+            # Move the file form the temporal folder to
+            # the upload folder we setup
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            load_table(filename, "master1_%s" % grade_value)
+
+            gld = gradelevel_dataset('master1_%s' % grade_value)
+
+            #return redirect('/index#initialize')
+            return jsonify(data)
     return redirect('/index#anchor2')
+
+@app.route('/test2', methods=['POST'])
+def test2():
+    if request.method == 'POST':
+        file = request.files['file']
+        test = request.form.get('gradeupload')
+        print(test)
+        #test_dict = dict(test)
+        #print(test_dict)
+        #print(test_dict['file'])
+        print("foobar")
+        #text_var = request.form.get('text')
+        if file and allowed_file(file.filename):
+            # Make the filename safe, remove unsupported chars
+            filename = secure_filename(file.filename)
+
+            # Move the file form the temporal folder to
+            # the upload folder we setup
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            load_table(filename, "table_%s" % test)
+
+            gld = gradelevel_dataset('table_%s' % test)
+        return redirect('/index#anchor2')
+    return redirect('/index#initialize')
 
 
 @app.route('/group_by', methods=['GET', 'POST'])
