@@ -9,7 +9,10 @@ from .models import teacherGroup
 from .models import gradelevel_dataset
 from .models import User
 from .models import UniqueSchools
+from .models import StudentCounts
 from .function import calc_limited_eng_prof
+from .function import load_stu_counts
+#from .function import display_summary
 from config import basedir
 from werkzeug import secure_filename
 import os
@@ -37,10 +40,11 @@ def classinfo():
     #user1_dict = user1_obj.__dict__
     #user1 = user1_dict['nickname']
     user1='ryan'
-
+    how_many = StudentCounts.query.filter_by(school='Wright Charter').first()
+    total_stu = how_many.total_stu_count
     if form.validate_on_submit():
         return redirect('/index')
-    return render_template('index.html', user='ryan', form =form, user1=user1)
+    return render_template('index.html', user='ryan', form =form, user1=user1, total_stu=total_stu)
 
 
 @app.route('/uploader', methods=['GET', 'POST'])
@@ -127,9 +131,17 @@ def test2():
                 u = models.UniqueSchools(school=this_school)
                 db.session.add(u)
             db.session.commit()
+            load_stu_counts(grade_upload + "_" + year_upload)
 
             count = calc_limited_eng_prof(tablename)
             print(count)
+            my_school = UniqueSchools.query.filter_by(school='Wright Charter').first()
+            print(my_school.id)
+            db.session.commit()
+            #display_data = display_summary(grade_upload + "_" + year_upload)
+
+
+
 
         return redirect('/index#anchor2')
     return redirect('/index#initialize')

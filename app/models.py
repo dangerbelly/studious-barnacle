@@ -147,6 +147,7 @@ class UniqueSchools(db.Model):
 
 class StudentCounts(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
+	#grade_year = db.Column(db.String(140))
 	school = db.Column(db.String(140))
 	total_stu_count = db.Column(db.Integer)
 	female_count = db.Column(db.Integer)
