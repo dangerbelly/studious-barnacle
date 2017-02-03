@@ -105,6 +105,35 @@
       .invisible {
         visibility: hidden;
       }
+      #exTab1 .tab-content {
+        color : white;
+        background-color: #428bca;
+        padding : 5px 15px;
+      }
+
+      #exTab2 h3 {
+        color : white;
+        background-color: #428bca;
+        padding : 5px 15px;
+      }
+
+      /* remove border radius for the tab */
+
+      #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+      }
+
+      /* change border radius for the tab , apply corners on top*/
+
+      #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0 ;
+      }
+
+      #exTab3 .tab-content {
+        color : white;
+        background-color: #428bca;
+        padding : 5px 15px;
+      }
 
     </style>
   </head>
@@ -217,9 +246,15 @@
 
                               <div class="tab-content ">
                                 <div class="tab-pane active" id="1">
-                                    <p>Number of students: {{ total_stu }}</p>
-                                    <p>District: {{user1}}</p>
-                                    <p>Schools: {{user1}}</p> 
+                                  <div class="col-md-4 no-border" style="padding-top: 10px">
+                                  <h4>Student Counts</h4>
+                                    <p>District: {{ total_stu }}</p>
+                                    <p>School 1: {{user1}}</p>
+                                    <p>School 2: {{user1}}</p> 
+                                  </div>
+                                  <div class="col-md-4 no-border" style="padding-top: 10px">
+                                    <h4>More Content Goes Here</h4>
+                                  </div>
                                 </div>
                                 <div class="tab-pane" id="2">
                                   <h2>This is filler text</h2>
