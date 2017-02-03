@@ -1,5 +1,6 @@
 import psycopg2
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData, Table, Column, ForeignKey
+from sqlalchemy.ext.automap import automap_base
 from config import SQLALCHEMY_DATABASE_URI
 import pandas as pd
 import csv
@@ -135,3 +136,26 @@ class Post(db.Model):
 
 	def __repr__(self):
 		return '<Post %r>' % (self.body)
+
+class UniqueSchools(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	school = db.Column(db.String(140))
+	
+	def __repr__(self):
+		return '<Post %r>' % (self.school)
+
+
+class StudentCounts(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	school = db.Column(db.String(140))
+	total_stu_count = db.Column(db.Integer)
+	female_count = db.Column(db.Integer)
+	male_count = db.Column(db.Integer)
+	lim_eng_yes = db.Column(db.Integer)
+	lim_eng_no = db.Column(db.Integer)
+
+	def __repr__(self):
+		return '<Post %r>' % (self.school)
+
+
+

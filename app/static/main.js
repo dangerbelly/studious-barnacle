@@ -20,11 +20,15 @@ $(document).ready(function() {
 
 	$(function() {
     $('#upload-file-btn').click(function() {
+    	localStorage.setItem('show','true');
+    	var show = localStorage.getItem('show');
+		
+		if (show ==='true'){
+			$("#myId").show()
+		}
+		console.log(show);
         var form_data = new FormData($('#upload-file')[0]);
-        //var form_data = new FormData($('#gradeupload')[0]);
-        console.log($("#gradeupload"))
-        //var test = ['this text']
-        //form_data.append('data', $("gradeupload")[0]);
+
         $.ajax({
             type: 'POST',
             url: '/test2',
