@@ -11,7 +11,7 @@
     <!-- <link rel="icon" href="../../favicon.ico"> -->
 
     <title>CAASPPer</title>
-    
+
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.css" rel="stylesheet">
@@ -33,7 +33,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
 
     <!--<script type="text/javascript" src="/static/d3/d3.js"></script> -->
 
@@ -200,6 +200,7 @@
       .purp    { background-color: #9a879d; color: #eeeeee;}
       .slater  { background-color: #ddd; }
       .deep    { background-color: #26547C; color: #ffffff; }
+      .orange  { background-color: #fc9b25 }
 
       /* -------------------- Colors: Text */
       .slate select   { color: #000; }
@@ -332,13 +333,15 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>CAASPPer</h1>
+        <h1 style="color:white; text-shadow: -2px 0 #ffa942,0 2px #ffa942,2px 0 #ffa942,0 -2px #ffa942;">CAASPPer</h1>
+        <hr>
+        <h5>A web app for simple CAASPP data analaysis.</h5>
       </div>
-      <div class="container1" style="padding: 15px"> 
+      <div class="container1" style="padding: 15px; padding-top: 0px"> 
 
 
     </div> <!-- /row -->   
-      <div class="page-header" style="background-color: #9A879D; padding-top: 20px; padding-left: 20px; color: white">
+      <div class="page-header" style="background-color: #ffa942; padding-top: 20px; padding-left: 20px; color: white">
           <a name="initialize"></a>
           <h2>Upload</h2>
       </div>
@@ -407,14 +410,14 @@
                               <div class="tab-content ">
                                 <div class="tab-pane active" id="1" style="padding-right: 10px">
                                 <div class="row no-border" style="padding-right: 10px">
-                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: none">
-                                  <h3 style="background-color: #9A879D">Student Counts</h3>
+                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: solid;background-color: white">
+                                  <h3 style="background-color: #ffa942">Student Counts</h3>
                                     <p><h4>District: {{ total_stu }}</h4></p>
                                     <p><h4>School 1: {{user1}}</h4></p>
                                     <p><h4>School 2: {{user1}}</h4></p> 
                                   </div>
-                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: none">
-                                    <h3 style="background-color: #9A879D">More Content</h3>
+                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: solid;background-color: white">
+                                    <h3 style="background-color: #ffa942">More Content</h3>
                                   </div>
                                   </div> <!--Pane row-->
                                 </div>
