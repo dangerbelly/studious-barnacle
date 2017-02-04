@@ -11,6 +11,7 @@
     <!-- <link rel="icon" href="../../favicon.ico"> -->
 
     <title>CAASPPer</title>
+    
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.css" rel="stylesheet">
@@ -22,6 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/theme.css" rel="stylesheet">
     <link href="/static/css/grid.css" rel="stylesheet">
+    <link href="/static/css/component.css" rel="stylesheet">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
 
@@ -131,8 +133,160 @@
 
       #exTab3 .tab-content {
         color : white;
-        background-color: #428bca;
+        /*background-color: #428bca;*/
+        background-color: white;
         padding : 5px 15px;
+      }
+      .button {
+          background-color: #26547C; /* Green */
+          border: none;
+          color: #ffffff;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+      }
+
+      /*Select Styles*/
+      .styled-select {
+         background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+         height: 29px;
+         overflow: hidden;
+         width: 240px;
+      }
+
+      .styled-select select {
+         background: transparent;
+         border: none;
+         font-size: 14px;
+         height: 29px;
+         padding: 5px; /* If you add too much padding here, the options won't show in IE */
+         width: 268px;
+      }
+
+      .styled-select.slate {
+         background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+         height: 34px;
+         width: 240px;
+      }
+
+      .styled-select.slate select {
+         border: 1px solid #ccc;
+         font-size: 16px;
+         height: 34px;
+         width: 268px;
+      }
+
+      /* -------------------- Rounded Corners */
+      .rounded {
+         -webkit-border-radius: 20px;
+         -moz-border-radius: 20px;
+         border-radius: 20px;
+      }
+
+      .semi-square {
+         -webkit-border-radius: 5px;
+         -moz-border-radius: 5px;
+         border-radius: 5px;
+      }
+
+      /* -------------------- Colors: Background */
+      .slate   { background-color: #ddd; }
+      .green   { background-color: #779126; }
+      .blue    { background-color: #3b8ec2; }
+      .yellow  { background-color: #eec111; }
+      .black   { background-color: #000; }
+      .purp    { background-color: #9a879d; color: #eeeeee;}
+      .slater  { background-color: #ddd; }
+      .deep    { background-color: #26547C; color: #ffffff; }
+
+      /* -------------------- Colors: Text */
+      .slate select   { color: #000; }
+      .green select   { color: #fff; }
+      .blue select    { color: #fff; }
+      .yellow select  { color: #000; }
+      .black select   { color: #fff; }
+      .while select   { color: #000000; }
+
+
+      /* -------------------- Select Box Styles: danielneumann.com Method */
+      /* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
+      #mainselection select {
+         border: 0;
+         color: #EEE;
+         background: transparent;
+         font-size: 20px;
+         font-weight: bold;
+         padding: 2px 10px;
+         width: 378px;
+         *width: 350px;
+         *background: #58B14C;
+         -webkit-appearance: none;
+      }
+
+      #mainselection {
+         overflow:hidden;
+         width:350px;
+         -moz-border-radius: 9px 9px 9px 9px;
+         -webkit-border-radius: 9px 9px 9px 9px;
+         border-radius: 9px 9px 9px 9px;
+         box-shadow: 1px 1px 11px #330033;
+         background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
+      }
+
+
+      /* -------------------- Select Box Styles: stackoverflow.com Method */
+      /* -------------------- Source: http://stackoverflow.com/a/5809186 */
+      select#soflow, select#soflow-color {
+         -webkit-appearance: button;
+         -webkit-border-radius: 2px;
+         -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+         -webkit-padding-end: 20px;
+         -webkit-padding-start: 2px;
+         -webkit-user-select: none;
+         background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+         background-position: 97% center;
+         background-repeat: no-repeat;
+         border: 1px solid #AAA;
+         color: #555;
+         font-size: inherit;
+         margin: 20px;
+         overflow: hidden;
+         padding: 5px 10px;
+         text-overflow: ellipsis;
+         white-space: nowrap;
+         width: 300px;
+      }
+
+      select#soflow-color {
+         color: #fff;
+         background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+         background-color: #779126;
+         -webkit-border-radius: 20px;
+         -moz-border-radius: 20px;
+         border-radius: 20px;
+         padding-left: 15px;
+      }
+
+      .fileContainer {
+          overflow: hidden;
+          position: relative;
+      }
+
+      .fileContainer [type=file] {
+          background-color: #26547C;
+          cursor: inherit;
+          display: block;
+          font-size: 999px;
+          filter: alpha(opacity=0);
+          min-height: 100%;
+          min-width: 100%;
+          opacity: 0;
+          position: absolute;
+          right: 0;
+          text-align: right;
+          top: 0;
       }
 
     </style>
@@ -184,7 +338,7 @@
 
 
     </div> <!-- /row -->   
-      <div class="page-header">
+      <div class="page-header" style="background-color: #9A879D; padding-top: 20px; padding-left: 20px; color: white">
           <a name="initialize"></a>
           <h2>Upload</h2>
       </div>
@@ -198,6 +352,7 @@
             <p></p>
             <form id="upload-file" method="post" enctype="multipart/form-data">
             <h5>1. Select the grade and testing year</h5>
+            <div class="styled-select deep">
               <select id = "gradeupload" name="gradeupload">
               <option value="Grade" selected disabled>Grade</option>
               <option value="3rd">3rd</option>
@@ -205,19 +360,23 @@
               <option value="4th">5th</option>
               <option value="4th">6th</option>
             </select>
+           </div>
+           <br>
+           <div class="styled-select deep">
             <select id = "yearupload" name="yearupload">
               <option value="Year" selected disabled>Year</option>
               <option value="14-15">14-15</option>
               <option value="15-16">15-16</option>
             </select>
+            </div>
             <p><br></p>
             <p><h5>2. Select the file to upload</h5></p>
               <fieldset>
-                <!--<label for="file"></label>-->
+                <label for="file"></label>
                 <input name="file" type="file">
             </fieldset>
             <fieldset>
-                <button id="upload-file-btn" type="button">Upload</button>
+                <button id="upload-file-btn" type="button" class="button">Upload</button>
             </fieldset>
 
       
@@ -227,12 +386,13 @@
 
           </div>
 
-          <div class="col-md-8 no-border" style="padding-top: 0px">
+          <div class="col-md-8 no-border" style="padding-top: 0px; padding-left: 0px; border-style: none">
               
                   <div id="myId" style="display:none;">
                     <!-- <div class="container"><h2>Example tab 2 (using standard nav-tabs)</h2></div> -->
 
                         <div id="exTab2" class="container"> 
+                        <div class="row">Dropdowns Go Here</div>
                         <ul class="nav nav-tabs">
                               <li class="active">
                                 <a  href="#1" data-toggle="tab">Overview</a>
@@ -245,16 +405,18 @@
                             </ul>
 
                               <div class="tab-content ">
-                                <div class="tab-pane active" id="1">
-                                  <div class="col-md-4 no-border" style="padding-top: 10px">
-                                  <h4>Student Counts</h4>
-                                    <p>District: {{ total_stu }}</p>
-                                    <p>School 1: {{user1}}</p>
-                                    <p>School 2: {{user1}}</p> 
+                                <div class="tab-pane active" id="1" style="padding-right: 10px">
+                                <div class="row no-border" style="padding-right: 10px">
+                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: none">
+                                  <h3 style="background-color: #9A879D">Student Counts</h3>
+                                    <p><h4>District: {{ total_stu }}</h4></p>
+                                    <p><h4>School 1: {{user1}}</h4></p>
+                                    <p><h4>School 2: {{user1}}</h4></p> 
                                   </div>
-                                  <div class="col-md-4 no-border" style="padding-top: 10px">
-                                    <h4>More Content Goes Here</h4>
+                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: none">
+                                    <h3 style="background-color: #9A879D">More Content</h3>
                                   </div>
+                                  </div> <!--Pane row-->
                                 </div>
                                 <div class="tab-pane" id="2">
                                   <h2>This is filler text</h2>
@@ -265,9 +427,7 @@
                               </div>
                           </div>
                   </div>
-                  <div class="row">
-                      Dropdowns Here
-                  </div>
+                  <!--<div class="row">Dropdowns Go Here</div>-->
               
           </div> <!-- /8col -->
 
