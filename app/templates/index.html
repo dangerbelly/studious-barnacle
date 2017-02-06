@@ -290,6 +290,23 @@
           top: 0;
       }
 
+      .fileUpload {
+          position: relative;
+          overflow: hidden;
+          margin: 10px;
+      }
+      .fileUpload input.upload {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin: 0;
+          padding: 0;
+          font-size: 20px;
+          cursor: pointer;
+          opacity: 0;
+          filter: alpha(opacity=0);
+      }
+
     </style>
   </head>
 
@@ -333,9 +350,10 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1 style="color:white; text-shadow: -2px 0 #ffa942,0 2px #ffa942,2px 0 #ffa942,0 -2px #ffa942;">CAASPPer</h1>
+        <!--<h1 style="color:white; text-shadow: -2px 0 #000,0 -2px #000,2px 0 #000,0 -2px #000;">CAASPPer</h1>-->
+        <h1 style="color:white; text-shadow: 2px 2px 4px #000;">CAASPPer</h1>
         <hr>
-        <h5>A web app for simple CAASPP data analaysis.</h5>
+        <h4>A web app for simple CAASPP data analaysis.</h4>
       </div>
       <div class="container1" style="padding: 15px; padding-top: 0px"> 
 
@@ -347,8 +365,8 @@
       </div>
 
       
-      <div class="row match-my-cols" style="padding-top: 0px">
-          <div class="col-md-4 no-border">
+      <div class="row match-my-cols" style="padding-top: 0px; border-style: none">
+          <div class="col-md-4 no-border" style="background-color: white;border-style: none">
             <h4>Upload your CSVs containing the CAASPP data.</h4>
             <h4></h4>
             <hr>
@@ -375,9 +393,14 @@
             <p><br></p>
             <p><h5>2. Select the file to upload</h5></p>
               <fieldset>
-                <label for="file"></label>
-                <input name="file" type="file">
+              <div class="file-upload btn" style="background-color: #26547C;color: white">
+                <!--<span style="background-color: #26547C; color: white">Select File</span>-->
+                <span></span>
+                <!--<label for="file"></label>-->
+                <input name="file" type="file" class="fileUpload upload">
+                </div>
             </fieldset>
+            <br>
             <fieldset>
                 <button id="upload-file-btn" type="button" class="button">Upload</button>
             </fieldset>
@@ -415,6 +438,8 @@
                                     <p><h4>District: {{ total_stu }}</h4></p>
                                     <p><h4>School 1: {{user1}}</h4></p>
                                     <p><h4>School 2: {{user1}}</h4></p> 
+                                    <p><h4>School 3: {{user1}}</h4></p>
+                                    <p><h4>Limited English Proficiency: {{user1}}</h4></p> 
                                   </div>
                                   <div class="col-md-4 no-border" style="padding-top: 10px; border-style: solid;background-color: white">
                                     <h3 style="background-color: #ffa942">More Content</h3>
