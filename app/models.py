@@ -158,5 +158,33 @@ class StudentCounts(db.Model):
 	def __repr__(self):
 		return '<Post %r>' % (self.school)
 
+#class AchievementScoreTotals
+	#id = db.Column(db.Integer, primary_key=True)
+	#gradeyearschool = db.Column(db.String(140))
+	#math4score = db.Column(db.Integer)
+	#math3score = db.Column(db.Integer)
+	#math2score = db.Column(db.Integer)
+	#math1score = db.Column(db.Integer)
+	#ela4score = db.Column(db.Integer)
+	#ela3score = db.Column(db.Integer)
+	#ela2score = db.Column(db.Integer)
+	#ela1score = db.Column(db.Integer)
+
+	#def __repr__(self):
+	#	return '<Post %r>' % (self.school)
+
+#class DistrictClaimScores
+	#id = db.Column(db.Integer, primary_key=True)
+	#gradeyearschool = db.Column(db.String(140))
+	#Category = db.Column(db.String(140))
+	#AboveStandard = db.Column(db.Integer)
+	#NearStandard = db.Column(db.Integer)
+	#BelowStandard = db.Column(db.Integer)
+
+	#def __repr__(self):
+	#	return '<Post %r>' % (self.school)
+
+
+
 
 
