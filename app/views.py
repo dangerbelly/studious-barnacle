@@ -40,8 +40,9 @@ def classinfo():
     #user1_dict = user1_obj.__dict__
     #user1 = user1_dict['nickname']
     user1='ryan'
-    how_many = StudentCounts.query.filter_by(school='Wright Charter').first()
-    total_stu = how_many.total_stu_count
+    #how_many = StudentCounts.query.filter_by(school='Wright Charter').first()
+    #total_stu = how_many.total_stu_count
+    total_stu=150
     if form.validate_on_submit():
         return redirect('/index')
     return render_template('index.html', user='ryan', form =form, user1=user1, total_stu=total_stu)

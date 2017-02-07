@@ -1,66 +1,35 @@
 import psycopg2
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData, Table, Column, ForeignKey
+from sqlalchemy.ext.automap import automap_base
+from config import SQLALCHEMY_DATABASE_URI
 import pandas as pd
 import csv
-from config import SQLALCHEMY_DATABASE_URI 
-from .models import UniqueSchools
+from app import db
+from config import basedir
+from .models import StudentCounts
 
-def load_table(csv_filename, table_name, new_table):
-    engine = create_engine('postgresql://barnacle:studious@localhost/barnacle')
-
-    df = pd.read_csv(csv_filename)
-    df.to_sql(table_name, engine)
-
-    df = pd.read_sql_query('select * from "%s"' % table_name, con=engine)
-
-    lol = df.values.tolist()
-
-    with open('/home/dangerbelly/microblog/app/cid_cu.csv') as f:
-        reader = csv.reader(f)
-        teacher_list = [row for row in reader]
-
-    for row, i in enumerate(teacher_list):
-        current_ssid = teacher_list[row][0]
-        current_teacher = teacher_list[row][1]
-
-        for row, i in enumerate(lol):
-            #Turn caaspp data into a string and look for match
-            ssid_caaspp = str(lol[row][3])
-            if ssid_caaspp == current_ssid:
-                lol[row].append(current_teacher)
-
-    cu_list = []
-
-    for row, i in enumerate(lol):
-        try:
-        cu_list.append(lol[row][38])
-        except IndexError:
-            cu_list.append('null')
-
-    df['cu'] = pd.Series(cu_list, index=df.index)
-
-    df.to_sql(new_table, engine)
-
-    return cu_list
-
-def load_unique_schools()
+def calc_limited_eng_prof(this_table):
     engine = create_engine(SQLALCHEMY_DATABASE_URI)
-    df = pd.read_sql_query('select * from "%s"' % table_name, con=engine)
-
-def load_stats_table()
-    engine = create_engine(SQLALCHEMY_DATABASE_URI)
-    df = pd.read_sql_query('select * from "%s"' % table_name, con=engine)
-
-def calc_limited_eng_prof(this_dataframe)
-    engine = create_engine(SQLALCHEMY_DATABASE_URI)
-    #df = pd.read_sql_query('select * from "%s"' % table_name, con=engine)
-    df=this_dataframe
+    df = pd.read_sql_query('select * from "%s"' % this_table, con=engine)
     df = df['Limited English Proficiency Status']
-    limited_eng_prof_list = df.tolist()
+    lim_eng_list = df.tolist()
     yes = sum(1 for x in lim_eng_list if x=='Y')
     no = df.isnull().sum()
     yesno = [yes,no]
     return yesno
 
+#def display_summary(this_grade_year):
+#	engine = create_engine(SQLALCHEMY_DATABASE_URI)
+#	data_unit = StudentCounts.query.filter_by(school=this_grade_year).first()
+#	this_stu_total = data_unit.total_stu_count
+#	data_to_return = {'total_count':this_stu_total}
+#	return data_to_return
 
-
+def load_stu_counts(this_grade_year):
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
+    this_table = "table_" + this_grade_year
+    df = pd.read_sql_query('select * from "%s"' % this_table, con=engine)
+    this_total_count = len(df.index)
+    total_entry = StudentCounts(school=this_grade_year, total_stu_count=this_total_count)
+    db.session.add(total_entry)
+    db.session.commit()
