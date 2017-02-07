@@ -417,37 +417,67 @@
                   <div id="myId" style="display:none;">
                     <!-- <div class="container"><h2>Example tab 2 (using standard nav-tabs)</h2></div> -->
 
-                        <div id="exTab2" class="container"> 
-                        <div class="row">Dropdowns Go Here</div>
+                        <div id="exTab2" class="container" style="padding-top: 10px"> 
+                        
                         <ul class="nav nav-tabs">
                               <li class="active">
-                                <a  href="#1" data-toggle="tab">Overview</a>
+                                <a  href="#1" data-toggle="tab"><h5>Overview</h5></a>
                               </li>
-                              <li><a href="#2" data-toggle="tab">Achievement Levels</a>
+                              <li><a href="#2" data-toggle="tab"><h5>Achievement Levels</h5></a>
                               </li>
-                              <li><a href="#3" data-toggle="tab">Solution</a>
+                              <li><a href="#3" data-toggle="tab"><h5>Claim Categories</h5></a>
                               </li>
                               <li><a href="#4" class="add-contact" data-toggle="tab">+ Add Contact</a></li>
                             </ul>
 
                               <div class="tab-content ">
                                 <div class="tab-pane active" id="1" style="padding-right: 10px">
-                                <div class="row no-border" style="padding-right: 10px">
-                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: solid;background-color: white">
-                                  <h3 style="background-color: #ffa942">Student Counts</h3>
-                                    <p><h4>District: {{ total_stu }}</h4></p>
+                                <div class="row no-border" style="padding-right: 10px; padding-left: 10px;">
+                                  <div class="col-md-4 no-border" style="padding-top: 5px; border-style: solid;background-color: white">
+                                  <h3 style="background-color: #ffa942">Dataset Information</h3>
+                                    <p><h4>District: {{ total_stu }}</h4></p>                                   
+                                    <p><h4>School: {{user1}}</h4></p>
+                                    <p><h4>Grade: {{user1}}</h4></p> 
+                                    <p><h4>Year: {{user1}}</h4></p>
+                                    <br>
+                                    <p><h5>Change dataset to view:</h5></p>
+                                     <div class="styled-select deep">
+                                      <select id = "dynamicGradeYear" name="dynamicGradeYear">
+                                        <option value="Grade/Year" selected disabled>Year</option>
+                                        <option value="14-15">3rd_14-15</option>
+                                        <option value="15-16">3rd_15-16</option>
+                                      </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4 no-border" style="padding-top: 5px; border-style: solid;background-color: white">
+                                    <h3 style="background-color: #ffa942">Student Counts</h3>
+                                    <p><h4>District wide: {{ total_stu }}</h4></p>                                   
                                     <p><h4>School 1: {{user1}}</h4></p>
                                     <p><h4>School 2: {{user1}}</h4></p> 
                                     <p><h4>School 3: {{user1}}</h4></p>
                                     <p><h4>Limited English Proficiency: {{user1}}</h4></p> 
                                   </div>
-                                  <div class="col-md-4 no-border" style="padding-top: 10px; border-style: solid;background-color: white">
-                                    <h3 style="background-color: #ffa942">More Content</h3>
-                                  </div>
                                   </div> <!--Pane row-->
                                 </div>
                                 <div class="tab-pane" id="2">
-                                  <h2>This is filler text</h2>
+                                  <div class="row no-border" style="padding-right: 10px; padding-left: 10px;">
+                                  <div class="col-md-4 no-border" style="padding-top: 5px; border-style: solid;background-color: white">
+                                  <h3 style="background-color: #ffa942">Mathematics</h3>
+                                    <p><h4>District: {{ total_stu }}</h4></p>                                   
+                                    <p><h4>School: {{user1}}</h4></p>
+                                    <p><h4>Grade: {{user1}}</h4></p> 
+                                    <p><h4>Year: {{user1}}</h4></p>
+                                    <br>
+                                  </div>
+                                  <div class="col-md-4 no-border" style="padding-top: 5px; border-style: solid;background-color: white">
+                                    <h3 style="background-color: #ffa942">ELA/Literacy</h3>
+                                    <p><h4>District wide: {{ total_stu }}</h4></p>                                   
+                                    <p><h4>School 1: {{user1}}</h4></p>
+                                    <p><h4>School 2: {{user1}}</h4></p> 
+                                    <p><h4>School 3: {{user1}}</h4></p>
+                                    <p><h4>Limited English Proficiency: {{user1}}</h4></p> 
+                                  </div>
+                                  </div> <!--Pane row-->
                                 </div>
                                 <div class="tab-pane" id="3">
                                   <h3>add clearfix to tab-content (see the css)</h3>
