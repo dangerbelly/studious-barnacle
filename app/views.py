@@ -10,8 +10,8 @@ from .models import gradelevel_dataset
 from .models import User
 from .models import UniqueSchools
 from .models import StudentCounts
-from .function import calc_limited_eng_prof
-from .function import load_stu_counts
+from .functions import calc_limited_eng_prof
+from .functions import load_stu_counts
 #from .function import display_summary
 from config import basedir
 from werkzeug import secure_filename
