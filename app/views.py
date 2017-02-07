@@ -131,7 +131,7 @@ def test2():
                 u = models.UniqueSchools(school=this_school)
                 db.session.add(u)
             db.session.commit()
-            load_stu_counts(grade_upload + "_" + year_upload)
+            load_stu_counts("%s_%s" % (grade_upload,year_upload))
 
             count = calc_limited_eng_prof(tablename)
             print(count)
