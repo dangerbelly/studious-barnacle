@@ -144,6 +144,13 @@ class UniqueSchools(db.Model):
 	def __repr__(self):
 		return '<Post %r>' % (self.school)
 
+class UniqueYears(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	year = db.Column(db.String(140))
+	
+	def __repr__(self):
+		return '<Post %r>' % (self.school)
+
 
 class StudentCounts(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

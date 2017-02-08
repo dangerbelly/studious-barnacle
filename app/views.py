@@ -4,6 +4,8 @@ from .forms import LoginForm
 from .forms import DealForm
 from .forms import ClassInfo
 from .forms import SelectTeacher
+from .forms import PreviewData
+from .forms import SimpleForm
 from .models import load_table
 from .models import teacherGroup
 from .models import gradelevel_dataset
@@ -31,11 +33,10 @@ def allowed_file(filename):
 
 @app.route('/')
 
-
 @app.route('/index', methods=['GET', 'POST'])
 def classinfo():
     form = ClassInfo()
-
+    form2 = PreviewData()
     #user1_obj = User.query.get(1)
     #user1_dict = user1_obj.__dict__
     #user1 = user1_dict['nickname']
@@ -45,69 +46,27 @@ def classinfo():
     total_stu=150
     if form.validate_on_submit():
         return redirect('/index')
-    return render_template('index.html', user='ryan', form =form, user1=user1, total_stu=total_stu)
+    return render_template('index.html', user='ryan', form =form, user1=user1, total_stu=total_stu,form2=form2)
 
-
-@app.route('/uploader', methods=['GET', 'POST'])
-def upload():
-    form = ClassInfo()
-    # Get the name of the uploaded file
-    file = request.files['file']
-
-    grade_value = (request.form.get('grade_value'))
-    # Check if the file is one of the allowed types/extensions
-    if file and allowed_file(file.filename):
-        # Make the filename safe, remove unsupported chars
-        filename = secure_filename(file.filename)
-
-        # Move the file form the temporal folder to
-        # the upload folder we setup
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        load_table(filename, "master1_%s" % grade_value)
-
-        gld = gradelevel_dataset('master1_%s' % grade_value)
-
-        return redirect('/index#initialize')
-
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-   
+@app.route('/test1', methods=['POST'])
+def test1():
     if request.method == 'POST':
-        value_one = int(request.form.get('first'))
-        file = (request.form.get('file'))
-        grade_value = (request.form.get('grade_value'))
-        data = {"total_students":1562,"school_number":2,"schools":'RL, JX'}
+        test_var = 'test'
+        print(test_var)
+    return redirect('/index')
 
-        print(grade_value)
-        #return jsonify(data)
-        if file and allowed_file(file.filename):
-            # Make the filename safe, remove unsupported chars
-            filename = secure_filename(file.filename)
+@app.route('/display')
+def display():
+    return redirect('/index')
 
-            # Move the file form the temporal folder to
-            # the upload folder we setup
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            load_table(filename, "master1_%s" % grade_value)
-
-            gld = gradelevel_dataset('master1_%s' % grade_value)
-
-            #return redirect('/index#initialize')
-            return jsonify(data)
-    return redirect('/index#anchor2')
-
-@app.route('/test2', methods=['POST'])
-def test2():
+@app.route('/upload', methods=['POST'])
+def upload():
     if request.method == 'POST':
         file = request.files['file']
         grade_upload = request.form.get('gradeupload')
         year_upload = request.form.get('yearupload')
         print(grade_upload)
         print(year_upload)
-        #test_dict = dict(test)
-        #print(test_dict)
-        #print(test_dict['file'])
         print("foobar")
         #text_var = request.form.get('text')
         if file and allowed_file(file.filename):
@@ -142,8 +101,6 @@ def test2():
             #display_data = display_summary(grade_upload + "_" + year_upload)
 
 
-
-
         return redirect('/index#anchor2')
     return redirect('/index#initialize')
 
@@ -169,34 +126,6 @@ def group_by():
 
         #return render_template('classinfo.html', user='ryan', form=form, filename=filename)
         return redirect('/index')
-
-
-@app.route('/teacherdropdown', methods=['GET', 'POST'])
-def teacherdropdown():
-    form = TeacherDropdown()
-
-
-    if form.validate_on_submit():
-        return redirect('/index')
-    return redirect('/classinfo')
-
-@app.route('/selectateacher', methods=['GET', 'POST'])
-def selectateacher():
-    form = SelectTeacher()
-
-    if form.validate_on_submit():
-        return redirect('/index#anchor2', result=result)
-    return redirect('/index')
-
-@app.route('/uploads')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
-
-@app.route('/example', methods=['GET', 'POST'])
-def example():
-    return render_template('example.html')
-
 
 
 @app.route('/login', methods=['GET', 'POST'])

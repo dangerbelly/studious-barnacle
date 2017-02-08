@@ -12,7 +12,10 @@ function sndForm(){
 
 }
 
+
+
 $(document).ready(function() {
+
 
 	console.log("ready!");
 
@@ -28,19 +31,21 @@ $(document).ready(function() {
 		}
 		console.log(show);
         var form_data = new FormData($('#upload-file')[0]);
+        window.location.href=window.location.href;
 
         $.ajax({
             type: 'POST',
-            url: '/test2',
+            url: '/upload',
             data: form_data,
             contentType: false,
             cache: false,
             processData: false,
             async: false,
             success: function(data) {
-                console.log('Success!');
+            	requestCallback.requestComplete(true);
             },
         });
+      
     });
 });
 
