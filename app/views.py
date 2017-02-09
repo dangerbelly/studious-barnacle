@@ -81,10 +81,6 @@ def upload():
 
             gld = gradelevel_dataset('table_%s_%s' % (grade_upload,year_upload))
 
-            u = models.UniqueSchools(school='JX Wilson')
-            db.session.add(u)
-            db.session.commit()
-
             test_school_list = ['Robert L. Stevens Elementary', 'Wright Charter', 'J. X. Wilson Elementary']
             for row,x in enumerate(test_school_list):
                 this_school = test_school_list[row]
@@ -97,6 +93,10 @@ def upload():
             print(count)
             my_school = UniqueSchools.query.filter_by(school='Wright Charter').first()
             print(my_school.id)
+            #db.session.commit()
+
+            this = UniqueSchools()
+            this.AddSchool('Penn Manor')
             db.session.commit()
             #display_data = display_summary(grade_upload + "_" + year_upload)
 

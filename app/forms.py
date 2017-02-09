@@ -38,6 +38,6 @@ class SelectGradeUpload(BaseForm):
 
 class PreviewData(BaseForm):
     def fill_field():
-        return UniqueSchools.query
+        return UniqueSchools.query.all()
 
     myfield = QuerySelectField(query_factory=fill_field)

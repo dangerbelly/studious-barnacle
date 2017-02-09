@@ -140,9 +140,19 @@ class Post(db.Model):
 class UniqueSchools(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	school = db.Column(db.String(140))
+
+	def AddSchool(session, school_name):
+		new_school = UniqueSchools.query.filter_by(school=school_name).first()
+		if new_school:
+			print(new_school)
+			return new_school
+		else:
+			new_school = UniqueSchools(school = school_name)
+			db.session.add(new_school)
+			return new_school
 	
 	def __repr__(self):
-		return '<Post %r>' % (self.school)
+		return self.school
 
 class UniqueYears(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
