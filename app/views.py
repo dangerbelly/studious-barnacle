@@ -13,7 +13,8 @@ from .models import User
 from .models import UniqueSchools
 from .models import StudentCounts
 from .functions import calc_limited_eng_prof
-from .functions import load_stu_counts
+from .functions import load_stu_counts, fill_dropdown, get_unique_school_names, fill_total_entry
+from .models import mst, e
 #from .function import display_summary
 from config import basedir
 from werkzeug import secure_filename
@@ -79,26 +80,25 @@ def upload():
             tablename = "table_%s_%s" % (grade_upload,year_upload)
             load_table(filename, "table_%s_%s" % (grade_upload,year_upload))
 
-            gld = gradelevel_dataset('table_%s_%s' % (grade_upload,year_upload))
+            #Look through newly entered data and add any new schools to the dropdown
+            this_list = get_unique_school_names(tablename)
+            fill_dropdown(this_list)
 
-            test_school_list = ['Robert L. Stevens Elementary', 'Wright Charter', 'J. X. Wilson Elementary']
-            for row,x in enumerate(test_school_list):
-                this_school = test_school_list[row]
-                u = models.UniqueSchools(school=this_school)
-                db.session.add(u)
-            db.session.commit()
-            load_stu_counts("%s_%s" % (grade_upload,year_upload))
-
-            count = calc_limited_eng_prof(tablename)
-            print(count)
-            my_school = UniqueSchools.query.filter_by(school='Wright Charter').first()
-            print(my_school.id)
-            #db.session.commit()
-
-            this = UniqueSchools()
-            this.AddSchool('Penn Manor')
             db.session.commit()
             #display_data = display_summary(grade_upload + "_" + year_upload)
+            #print(mst.__dict__)
+            #print(mst.columns.keys())   
+            print(e)
+
+            wc_counts = fill_total_entry(tablename, 'Wright Charter')
+            print(wc_counts)
+
+            jx_counts = fill_total_entry(tablename, 'J. X. Wilson Elementary')
+            print(jx_counts)
+
+            rl_counts = fill_total_entry(tablename, 'Robert L. Stevens Elementary')
+            print(rl_counts)
+
 
 
         return redirect('/index#anchor2')

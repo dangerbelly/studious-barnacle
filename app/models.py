@@ -1,6 +1,7 @@
 import psycopg2
-from sqlalchemy import create_engine, MetaData, Table, Column, ForeignKey
+from sqlalchemy import create_engine, MetaData, Table, Column, ForeignKey, inspect, event, select
 from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import sessionmaker, Session
 from config import SQLALCHEMY_DATABASE_URI
 import pandas as pd
 import csv
@@ -202,6 +203,31 @@ class DistrictClaimScores(db.Model):
 		return '<Post %r>' % (self.school)
 
 
+#Base = automap_base()
+#Base.prepare(engine, reflect=True)
+#these_keys = Base.classes.keys()
 
+#mst = Table('table_3rd_14-15', meta, autoload=True, autoload_with=engine)
+
+#insp = inspect(mst)
+
+#Session = sessionmaker(bind=engine)
+#session = Session()
+#data1 = session.query(mst).all()
+
+@event.listens_for(Table, "column_reflect")
+def column_reflect(inspector, table, column_info):
+	# set column.key = "attr_<lower_case_name>"
+	column_info['key'] = column_info['name'].replace(' ', '_')
+
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
+meta = MetaData()
+meta.reflect(bind=engine)
+mst = meta.tables['table_3rd_14-15']
+#s = select([mst]).limit(10)
+#e = engine.execute(s).fetchall()
+session = Session(engine)
+#e = session.query(mst.c.Student_First_Name).all()
+e = session.query(mst).filter(mst.c.Student_First_Name == "Autumn").first()
 
 
