@@ -156,22 +156,44 @@ class UniqueSchools(db.Model):
 		return self.school
 
 class UniqueYears(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	year = db.Column(db.String(140))
+	#id = db.Column(db.Integer, primary_key=True)
+	year = db.Column(db.String(140), primary_key=True)
+
+	def AddYear(session, year1):
+		new_year = UniqueYears.query.filter_by(year=year1).first()
+		if new_year:
+			print(new_year)
+			return new_year
+		else:
+			new_year = UniqueYears(year=year1)
+			db.session.add(new_year)
+			return new_year
 	
 	def __repr__(self):
-		return '<Post %r>' % (self.school)
+		return self.year
 
 
 class StudentCounts(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
+	#id = db.Column(db.Integer, primary_key=True)
 	#grade_year = db.Column(db.String(140))
-	school = db.Column(db.String(140))
+	school = db.Column(db.String(140), primary_key=True)
+	grade = db.Column(db.String(140), primary_key=True)
+	year = db.Column(db.String(140), primary_key=True)
 	total_stu_count = db.Column(db.Integer)
 	female_count = db.Column(db.Integer)
 	male_count = db.Column(db.Integer)
 	lim_eng_yes = db.Column(db.Integer)
 	lim_eng_no = db.Column(db.Integer)
+
+	def AddRow(session, school1, grade1, year1, count_list):
+		new_school = StudentCounts.query.filter_by(school=school1).filter_by(grade=grade1).filter_by(year=year1).first()
+		if new_school:
+			print(new_school)
+			return new_school
+		else:
+			new_school = StudentCounts(school = school1, grade=grade1, year=year1, total_stu_count=count_list[0])
+			db.session.add(new_school)
+			return new_school
 
 	def __repr__(self):
 		return '<Post %r>' % (self.school)
@@ -223,11 +245,9 @@ def column_reflect(inspector, table, column_info):
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 meta = MetaData()
 meta.reflect(bind=engine)
-mst = meta.tables['table_3rd_14-15']
-#s = select([mst]).limit(10)
-#e = engine.execute(s).fetchall()
-session = Session(engine)
+#mst = meta.tables['table_3rd_14-15']
+#session = Session(engine)
 #e = session.query(mst.c.Student_First_Name).all()
-e = session.query(mst).filter(mst.c.Student_First_Name == "Autumn").first()
+#e = session.query(mst).filter(mst.c.Student_First_Name == "Autumn").first()
 
 

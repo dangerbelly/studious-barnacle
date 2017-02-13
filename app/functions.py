@@ -34,7 +34,14 @@ def fill_year_dropdown(this_year):
     unique_year = UniqueYears()
     unique_year.AddYear(this_year)
 
-def fill_total_entry(this_table, a_list):
+def fill_year_drop_based(grade_selection):
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
+    df = pd.read_sql_query('SELECT * FROM "student_counts" WHERE grade="%s"' % grade_selection, con=engine)
+    years_to_display = df['year'].unique()
+    years_to_display = list(years_to_display)
+    return years_to_display
+
+def fill_total_entry(this_table, a_list, a_year):
     engine = create_engine(SQLALCHEMY_DATABASE_URI)
     df = pd.read_sql_query('select * from "%s"' % this_table, con=engine)
     for this_school in a_list:
@@ -51,7 +58,7 @@ def fill_total_entry(this_table, a_list):
         count_list = [per_sch_count, per_sch_male, per_sch_female, per_sch_lim_eng, language_dict]
 
         studentcount = StudentCounts()
-        studentcount.AddRow(this_school, '3rd', '14-15', count_list)
+        studentcount.AddRow(this_school, '3rd', a_year, count_list)
 
 
 

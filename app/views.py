@@ -14,7 +14,7 @@ from .models import UniqueSchools
 from .models import StudentCounts
 from .functions import calc_limited_eng_prof
 from .functions import fill_dropdown, get_unique_school_names, fill_total_entry
-from .functions import fill_year_dropdown
+from .functions import fill_year_dropdown, fill_year_drop_based
 #from .models import mst, e
 #from .function import display_summary
 from config import basedir
@@ -86,7 +86,9 @@ def upload():
             this_year = year_upload
             fill_year_dropdown(this_year)
             fill_dropdown(this_list)
-            fill_total_entry(tablename, this_list)
+            fill_total_entry(tablename, this_list, year_upload)
+            years_to_display = fill_year_drop_based('3rd')
+            print(years_to_display)
 
   
             #print(e)
