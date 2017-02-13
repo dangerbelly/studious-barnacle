@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm as BaseForm
 from wtforms import StringField, BooleanField, SelectField, SelectMultipleField, TextField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
-from .models import UniqueSchools
+from .models import UniqueSchools, UniqueYears
 
 
 class LoginForm(BaseForm):
@@ -40,4 +40,10 @@ class PreviewData(BaseForm):
     def fill_field():
         return UniqueSchools.query.all()
 
-    myfield = QuerySelectField(query_factory=fill_field)
+    def fill_field2():
+        return UniqueYears.query.all()
+
+    school = QuerySelectField(query_factory=fill_field)
+
+    year = QuerySelectField(query_factory=fill_field2)
+

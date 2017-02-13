@@ -14,7 +14,8 @@ from .models import UniqueSchools
 from .models import StudentCounts
 from .functions import calc_limited_eng_prof
 from .functions import fill_dropdown, get_unique_school_names, fill_total_entry
-from .models import mst, e
+from .functions import fill_year_dropdown
+#from .models import mst, e
 #from .function import display_summary
 from config import basedir
 from werkzeug import secure_filename
@@ -82,17 +83,13 @@ def upload():
 
             #Look through newly entered data and add any new schools to the dropdown
             this_list = get_unique_school_names(tablename)
+            this_year = year_upload
+            fill_year_dropdown(this_year)
             fill_dropdown(this_list)
             fill_total_entry(tablename, this_list)
 
-            
-            #display_data = display_summary(grade_upload + "_" + year_upload)
-            #print(mst.__dict__)
-            #print(mst.columns.keys())   
-            print(e)
-
-            #wc_counts = fill_total_entry(tablename, 'Wright Charter')
-            #print(wc_counts)
+  
+            #print(e)
 
             db.session.commit()
 

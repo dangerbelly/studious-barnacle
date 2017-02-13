@@ -6,7 +6,7 @@ import pandas as pd
 import csv
 from app import db
 from config import basedir
-from .models import StudentCounts, UniqueSchools
+from .models import StudentCounts, UniqueSchools, UniqueYears
 
 def calc_limited_eng_prof(this_table):
     engine = create_engine(SQLALCHEMY_DATABASE_URI)
@@ -30,6 +30,10 @@ def fill_dropdown(unique_list):
     for x in unique_list:
         unique.AddSchool(x)
 
+def fill_year_dropdown(this_year):
+    unique_year = UniqueYears()
+    unique_year.AddYear(this_year)
+
 def fill_total_entry(this_table, a_list):
     engine = create_engine(SQLALCHEMY_DATABASE_URI)
     df = pd.read_sql_query('select * from "%s"' % this_table, con=engine)
@@ -44,12 +48,15 @@ def fill_total_entry(this_table, a_list):
             count = int(df[(df['Enrolled School'] == this_school) & (df['Language Code'] == language)].count(level=None)['Student ID'])
             language_dict[language] = count
 
-        #per_sch_count = int(per_sch_count)
-
         count_list = [per_sch_count, per_sch_male, per_sch_female, per_sch_lim_eng, language_dict]
 
-        this_row = StudentCounts(school=this_school, total_stu_count=per_sch_count, male_count=per_sch_male, female_count=per_sch_female, lim_eng_yes=per_sch_lim_eng)
-        db.session.add(this_row)
+        studentcount = StudentCounts()
+        studentcount.AddRow(this_school, '3rd', '14-15', count_list)
+
+
+
+        #this_row = StudentCounts(school=this_school, total_stu_count=per_sch_count, male_count=per_sch_male, female_count=per_sch_female, lim_eng_yes=per_sch_lim_eng)
+        #db.session.add(this_row)
 
     return "OK"
 
