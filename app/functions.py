@@ -6,7 +6,7 @@ import pandas as pd
 import csv
 from app import db
 from config import basedir
-from .models import StudentCounts, UniqueSchools, UniqueYears
+from .models import StudentCounts, UniqueSchools, UniqueGradeYears
 
 def calc_limited_eng_prof(this_table):
     engine = create_engine(SQLALCHEMY_DATABASE_URI)
@@ -30,9 +30,9 @@ def fill_dropdown(unique_list):
     for x in unique_list:
         unique.AddSchool(x)
 
-def fill_year_dropdown(this_year):
-    unique_year = UniqueYears()
-    unique_year.AddYear(this_year)
+def fill_grade_year_dropdown(this_grade, this_year):
+    unique_grade_year = UniqueGradeYears()
+    unique_grade_year.AddGradeYear(this_grade, this_year)
 
 def fill_year_drop_based(grade_selection):
     engine = create_engine(SQLALCHEMY_DATABASE_URI)

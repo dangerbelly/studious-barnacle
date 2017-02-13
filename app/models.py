@@ -155,22 +155,23 @@ class UniqueSchools(db.Model):
 	def __repr__(self):
 		return self.school
 
-class UniqueYears(db.Model):
+class UniqueGradeYears(db.Model):
 	#id = db.Column(db.Integer, primary_key=True)
-	year = db.Column(db.String(140), primary_key=True)
+	gradeyear = db.Column(db.String(140), primary_key=True)
 
-	def AddYear(session, year1):
-		new_year = UniqueYears.query.filter_by(year=year1).first()
-		if new_year:
-			print(new_year)
-			return new_year
+	def AddGradeYear(session, grade1, year1):
+		gradeyear1 = grade1 + year1
+		new_gradeyear = UniqueGradeYears.query.filter_by(gradeyear=gradeyear1).first()
+		if new_gradeyear:
+			print(new_gradeyear)
+			return new_gradeyear
 		else:
-			new_year = UniqueYears(year=year1)
-			db.session.add(new_year)
-			return new_year
+			new_gradeyear = UniqueGradeYears(gradeyear=gradeyear1)
+			db.session.add(new_gradeyear)
+			return new_gradeyear
 	
 	def __repr__(self):
-		return self.year
+		return self.gradeyear
 
 
 class StudentCounts(db.Model):
